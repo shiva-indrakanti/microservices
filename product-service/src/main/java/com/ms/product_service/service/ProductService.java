@@ -18,9 +18,12 @@ public class ProductService {
     private ProductRepo productRepo;
 
     public void saveProduct(ProductResponseDto productResponseDto) {
-        Optional<Product> alreadyExists = productRepo.findByName(productResponseDto.getName());
-        if(alreadyExists.isPresent()) {
-            throw new ProductAlreadyExistsException("Product already exists in system. Please check the product name");
+        Product alreadyExists = productRepo
+                .findByUniqueCode(productResponseDto.getUniqueCode())
+                .orElse(null);
+
+        if (alreadyExists != null) {
+            throw new ProductAlreadyExistsException("Product already exists in system. Please check the product code: " + productResponseDto.getUniqueCode());
         }
         Product product = new Product();
         product.setUniqueCode(productResponseDto.getUniqueCode());
