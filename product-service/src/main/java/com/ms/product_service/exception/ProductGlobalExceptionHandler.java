@@ -1,5 +1,6 @@
 package com.ms.product_service.exception;
 
+import com.ms.product_service.constants.ProductConstants;
 import com.ms.product_service.dto.ErrorResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,21 +24,21 @@ public class ProductGlobalExceptionHandler {
                                                                                  WebRequest webRequest){
         ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
                 webRequest.getDescription(false),
-                HttpStatus.BAD_REQUEST,
+                ProductConstants.PRODUCT_ALREADY_EXIST,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(Integer.parseInt(ProductConstants.PRODUCT_BAD_REQUEST)).body(errorResponseDTO);
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> handleProductNotFoundException(ProductNotFoundException exception,WebRequest request){
         ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
                 request.getDescription(false),
-                HttpStatus.NOT_FOUND,
+                ProductConstants.PRODUCT_NOT_FOUND,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDTO);
+        return ResponseEntity.status(Integer.parseInt(ProductConstants.PRODUCT_NOT_FOUND)).body(errorResponseDTO);
     }
 }

@@ -1,5 +1,6 @@
 package com.ms.product_service.service;
 
+import com.ms.product_service.constants.ProductConstants;
 import com.ms.product_service.dto.ProductResponseDto;
 import com.ms.product_service.exception.ProductAlreadyExistsException;
 import com.ms.product_service.exception.ProductNotFoundException;
@@ -23,7 +24,7 @@ public class ProductService {
                 .orElse(null);
 
         if (alreadyExists != null) {
-            throw new ProductAlreadyExistsException("Product already exists in system. Please check the product code: " + productResponseDto.getUniqueCode());
+            throw new ProductAlreadyExistsException(ProductConstants.PRODUCT_ALREADY_EXIST_MESSAGE+" with " + productResponseDto.getUniqueCode());
         }
         Product product = new Product();
         product.setUniqueCode(productResponseDto.getUniqueCode());
@@ -43,7 +44,7 @@ public class ProductService {
     public ProductResponseDto findByUniqueCode(long code) {
         Product product = productRepo
                 .findByUniqueCode(code)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found with code: " + code));
+                .orElseThrow(() -> new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND_MESSAGE +" with " + code));
 
         ProductResponseDto productResponse = new ProductResponseDto();
         productResponse.setUniqueCode(product.getUniqueCode());
@@ -56,7 +57,7 @@ public class ProductService {
     public void updateProduct(ProductResponseDto productResponseDto) {
         // verifying product existence
         Product product = productRepo.findByUniqueCode(productResponseDto.getUniqueCode())
-                .orElseThrow(()->new ProductNotFoundException("Product doesn't exist with "+productResponseDto.getUniqueCode()+" in our system. Please create it"));
+                .orElseThrow(()->new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND_MESSAGE +" with "+productResponseDto.getUniqueCode()+" in our system. Please create it"));
 
         //if product exists
         product.setName(productResponseDto.getName());
@@ -68,7 +69,7 @@ public class ProductService {
     public void deleteProduct(long code) {
         Product product = productRepo
                 .findByUniqueCode(code)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found with code: " + code));
+                .orElseThrow(() -> new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND_MESSAGE +" with " + code));
         productRepo.delete(product);
     }
 }
