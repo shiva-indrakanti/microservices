@@ -37,4 +37,16 @@ public class ProductController {
         CustomProductResponse customProductResponse = new CustomProductResponse(ProductConstants.PRODUCT_FOUND, ProductConstants.PRODUCT_FOUND_MESSAGE, productByCode);
         return ResponseEntity.status(HttpStatus.FOUND).body(customProductResponse).getBody();
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateProduct(@RequestBody ProductResponseDto productResponseDto){
+        productService.updateProduct(productResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ProductConstants.UPDATE_STATUS_202,ProductConstants.UPDATE_MESSAGE_202));
+    }
+
+    @DeleteMapping("/delete/{unique-code}")
+    public ResponseEntity<ResponseDto> deleteProduct(@PathVariable("unique-code") long code){
+        productService.deleteProduct(code);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ProductConstants.DELETE_STATUS_203,ProductConstants.DELETE_MESSAGE_202));
+    }
 }

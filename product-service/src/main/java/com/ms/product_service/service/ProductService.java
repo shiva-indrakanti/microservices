@@ -52,4 +52,23 @@ public class ProductService {
         productResponse.setPrice(product.getPrice());
         return productResponse;
     }
+
+    public void updateProduct(ProductResponseDto productResponseDto) {
+        // verifying product existence
+        Product product = productRepo.findByUniqueCode(productResponseDto.getUniqueCode())
+                .orElseThrow(()->new ProductNotFoundException("Product doesn't exist with "+productResponseDto.getUniqueCode()+" in our system. Please create it"));
+
+        //if product exists
+        product.setName(productResponseDto.getName());
+        product.setDescription(productResponseDto.getDescription());
+        product.setPrice(productResponseDto.getPrice());
+        productRepo.save(product);
+    }
+
+    public void deleteProduct(long code) {
+        Product product = productRepo
+                .findByUniqueCode(code)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with code: " + code));
+        productRepo.delete(product);
+    }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CustomProductResponse {
 
-    private Integer statusCode;
+    private String statusCode;
     private String statusMessage;
     private ProductResponseDto productResponseDto;
 
