@@ -7,6 +7,7 @@ import com.ms.product_service.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,12 @@ public class ProductService {
         product.setDescription(productResponseDto.getDescription());
         product.setPrice(productResponseDto.getPrice());
         productRepo.save(product);
+    }
+
+    public List<ProductResponseDto> findAllProducts() {
+        List<Product> products = productRepo.findAll();
+        return products.stream()
+                .map(product -> new ProductResponseDto(product.getId(),product.getName(),product.getDescription(),product.getPrice()))
+                .toList();
     }
 }
