@@ -7,14 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductResponseDto {
+public class CustomProductResponse {
 
-    private long uniqueCode;
-
-    private String name;
-
-    private String description;
-
-    private double price;
+    private Integer statusCode;
+    private String statusMessage;
+    private ProductResponseDto productResponseDto;
 
 }

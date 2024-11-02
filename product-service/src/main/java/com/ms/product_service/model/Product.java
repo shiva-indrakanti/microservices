@@ -1,7 +1,10 @@
 package com.ms.product_service.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
@@ -14,12 +17,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "unique_code")
+    private long uniqueCode;
+
     @Column(name = "product_name")
     private String name;
 
     @Column(name = "product_desc")
     private String description;
 
-    @Column(name="price")
+
+    @Column(name = "price")
     private double price;
 }
