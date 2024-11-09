@@ -17,8 +17,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "unique_code")
-    private long uniqueCode;
+    @Column(name = "sku_code",unique = true, nullable = false)
+    private String skuCode;
 
     @Column(name = "product_name")
     private String name;

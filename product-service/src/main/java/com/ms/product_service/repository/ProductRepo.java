@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ProductRepo extends JpaRepository<Product,Long> {
 
-    Optional<Product> findByUniqueCode(long code);
+    Optional<Product> findByUniqueCode(String code);
 }

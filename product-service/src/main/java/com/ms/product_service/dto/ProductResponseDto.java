@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductResponseDto {
 
-    private long uniqueCode;
+    private String skuCode;
 
     private String name;
 

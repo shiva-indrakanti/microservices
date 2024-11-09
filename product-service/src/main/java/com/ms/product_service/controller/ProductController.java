@@ -31,8 +31,8 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(listOfProducts).getBody();
     }
 
-    @GetMapping("/{unique-code}")
-    public CustomProductResponse getProduct(@PathVariable("unique-code") long code) {
+    @GetMapping("/{sku-code}")
+    public CustomProductResponse getProduct(@PathVariable("sku-code") String code) {
         ProductResponseDto productByCode = productService.findByUniqueCode(code);
         CustomProductResponse customProductResponse = new CustomProductResponse(ProductConstants.STATUS_200, ProductConstants.PRODUCT_FOUND_MESSAGE, productByCode);
         return ResponseEntity.status(Integer.parseInt(ProductConstants.STATUS_200)).body(customProductResponse).getBody();
@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{unique-code}")
-    public ResponseEntity<ResponseDto> deleteProduct(@PathVariable("unique-code") long code){
+    public ResponseEntity<ResponseDto> deleteProduct(@PathVariable("unique-code") String code){
         productService.deleteProduct(code);
         return ResponseEntity.status(Integer.parseInt(ProductConstants.STATUS_200)).body(new ResponseDto(ProductConstants.STATUS_200,ProductConstants.MESSAGE_DELETE));
     }
