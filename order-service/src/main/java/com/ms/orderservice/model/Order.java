@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-@Table(name = "order_table", schema = "orders")
+@Table(name = "orders")
 public class Order {
 
     @Id
